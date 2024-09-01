@@ -4,8 +4,16 @@
  */
 const { AZauth, Mojang } = require('minecraft-java-core');
 const { ipcRenderer } = require('electron');
+const os = require('os');
 
-import { popup, database, changePanel, accountSelect, addAccount, config, setStatus } from '../utils.js';
+import { popup, database, changePanel, accountSelect, addAccount, config, setStatus, Slider } from '../utils.js';
+
+// Play Sound
+
+var audio = new Audio("assets/sound/intro.mp3");
+audio.play();
+
+// Login Logic
 
 class Login {
     static id = "login";
@@ -26,6 +34,8 @@ class Login {
             changePanel('settings')
         })
     }
+
+    /*
 
     async getMicrosoft() {
         console.log('Initializing Microsoft login...');
@@ -101,7 +111,7 @@ class Login {
             await this.saveData(MojangConnect)
             popupLogin.closePopup();
         });
-    }
+    } */
 
     async getAZauth() {
         console.log('Initializing AZauth login...');
@@ -117,6 +127,75 @@ class Login {
         let AZauthConnectBTN = document.querySelector('.connect-AZauth');
         let AZauthCancelA2F = document.querySelector('.cancel-AZauth-A2F');
 
+        /* Welcome Menu */
+
+        let StartConfigButton = document.querySelector('.start-config-button')
+        let StartConnectButton = document.querySelector('.start-connect-button')
+        let StartConnectButton2 = document.querySelector('.start-connect-button2')
+        let StartLauncherCC = document.querySelector('.start-config-launcher-comportement-button')
+
+        StartConfigButton.addEventListener('click', function() {
+            document.querySelector('.welcome-class').style.display = 'none';
+            document.querySelector('.config-ram-class').style.display = 'block';
+        });
+
+        StartConnectButton.addEventListener('click', function() {
+            document.querySelector('.welcome-class').style.display = 'none';
+            document.querySelector('.login-class').style.display = 'block';
+        });
+
+        StartLauncherCC.addEventListener('click', function() {
+            document.querySelector('.config-ram-class').style.display = 'none';
+            document.querySelector('.config-launcher-comport-class').style.display = 'block';
+        });
+
+        StartConnectButton2.addEventListener('click', function() {
+            document.querySelector('.config-launcher-comport-class').style.display = 'none';
+            document.querySelector('.login-class').style.display = 'block';
+        });
+
+        // Ram Settings
+
+        let config = await this.db.readData('configClient');
+        let totalMem = Math.trunc(os.totalmem() / 1073741824 * 10) / 10;
+
+        let freeMem = Math.trunc(os.freemem() / 1073741824 * 10) / 10;
+
+        document.getElementById("total-ram").textContent = `${totalMem} Go`;
+        document.getElementById("free-ram").textContent = `${freeMem} Go`;
+
+        let sliderDiv = document.querySelector(".memory-slider");
+        sliderDiv.setAttribute("max", Math.trunc((80 * totalMem) / 100));
+
+        let ram = config?.java_config?.java_memory ? {
+            ramMin: config.java_config.java_memory.min,
+            ramMax: config.java_config.java_memory.max
+        } : { ramMin: "1", ramMax: "2" };
+
+        if (totalMem < ram.ramMin) {
+            config.java_config.java_memory = { min: 1, max: 2 };
+            this.db.updateData('configClient', config);
+            ram = { ramMin: "1", ramMax: "2" }
+        };
+
+        let slider = new Slider(".memory-slider", parseFloat(ram.ramMin), parseFloat(ram.ramMax));
+
+        let minSpan = document.querySelector(".slider-touch-left span");
+        let maxSpan = document.querySelector(".slider-touch-right span");
+
+        minSpan.setAttribute("value", `${ram.ramMin} Go`);
+        maxSpan.setAttribute("value", `${ram.ramMax} Go`);
+
+        slider.on("change", async (min, max) => {
+            let config = await this.db.readData('configClient');
+            minSpan.setAttribute("value", `${min} Go`);
+            maxSpan.setAttribute("value", `${max} Go`);
+            config.java_config.java_memory = { min: min, max: max };
+            this.db.updateData('configClient', config);
+        });
+
+        /* Connexion logic */
+
         loginAZauth.style.display = 'block';
 
         AZauthConnectBTN.addEventListener('click', async () => {
@@ -125,7 +204,7 @@ class Login {
                 content: 'Veuillez patienter...',
                 color: 'var(--color)'
             });
-
+            
             if (AZauthEmail.value == '' || AZauthPassword.value == '') {
                 PopupLogin.openPopup({
                     title: 'Erreur',
@@ -217,4 +296,5 @@ class Login {
         changePanel('home');
     }
 }
+
 export default Login;

@@ -1,20 +1,20 @@
 {
-    "name": "minecraft_secret_twist",
-    "preductname": "Minecraft Secret Twist Launcher",
-    "version": "1.2.1",
-    "description": "The Official Launche for Secret Twist Server",
+    "name": "freedomsmp_launcher",
+    "preductname": "FreedomSMP Launcher",
+    "version": "1.0.0",
+    "description": "The official launcher of FreedomSMP Server",
     "main": "src/app.js",
     "author": {
         "name": "MazeGroup (Rayanis55), Inc.",
-        "email": "rayanis55@mazegroup.org",
-        "url": "https://github.com/rayanis55"
+        "email": "contact@mazegroup.org",
+        "url": "https://github.com/MazeGroup-Corp"
     },
-    "url": "https://minecrafthost1.mazegroup.org/",
+    "url": "https://fd.mazegroup.org/",
     "scripts": {
         "start": "cross-env-shell NODE_ENV=dev electron .",
         "dev": "cross-env-shell DEV_TOOL=open nodemon --exec npm start",
         "build": "node build.js --obf=true --build=platform",
-        "icon": "node build.js --icon=https://minecrafthost1.mazegroup.org/logo.png"
+        "icon": "node build.js --icon=https://fd.mazegroup.org/logo.png"
     },
     "license": "CCANC",
     "nodemonConfig": {
@@ -39,6 +39,6 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Rayanis55/Minecraft-BTIA-Twist-Launcher.git"
+        "url": ""
     }
 }
