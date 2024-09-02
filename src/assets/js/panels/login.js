@@ -131,12 +131,10 @@ class Login {
 
         let StartConfigButton = document.querySelector('.start-config-button')
         let StartConnectButton = document.querySelector('.start-connect-button')
-        let StartConnectButton2 = document.querySelector('.start-connect-button2')
-        let StartLauncherCC = document.querySelector('.start-config-launcher-comportement-button')
+        let HomeButton = document.querySelector('.go-to-home')
 
         StartConfigButton.addEventListener('click', function() {
-            document.querySelector('.welcome-class').style.display = 'none';
-            document.querySelector('.config-ram-class').style.display = 'block';
+            changePanel('settings')
         });
 
         StartConnectButton.addEventListener('click', function() {
@@ -144,54 +142,8 @@ class Login {
             document.querySelector('.login-class').style.display = 'block';
         });
 
-        StartLauncherCC.addEventListener('click', function() {
-            document.querySelector('.config-ram-class').style.display = 'none';
-            document.querySelector('.config-launcher-comport-class').style.display = 'block';
-        });
-
-        StartConnectButton2.addEventListener('click', function() {
-            document.querySelector('.config-launcher-comport-class').style.display = 'none';
-            document.querySelector('.login-class').style.display = 'block';
-        });
-
-        // Ram Settings
-
-        let config = await this.db.readData('configClient');
-        let totalMem = Math.trunc(os.totalmem() / 1073741824 * 10) / 10;
-
-        let freeMem = Math.trunc(os.freemem() / 1073741824 * 10) / 10;
-
-        document.getElementById("total-ram").textContent = `${totalMem} Go`;
-        document.getElementById("free-ram").textContent = `${freeMem} Go`;
-
-        let sliderDiv = document.querySelector(".memory-slider");
-        sliderDiv.setAttribute("max", Math.trunc((80 * totalMem) / 100));
-
-        let ram = config?.java_config?.java_memory ? {
-            ramMin: config.java_config.java_memory.min,
-            ramMax: config.java_config.java_memory.max
-        } : { ramMin: "1", ramMax: "2" };
-
-        if (totalMem < ram.ramMin) {
-            config.java_config.java_memory = { min: 1, max: 2 };
-            this.db.updateData('configClient', config);
-            ram = { ramMin: "1", ramMax: "2" }
-        };
-
-        let slider = new Slider(".memory-slider", parseFloat(ram.ramMin), parseFloat(ram.ramMax));
-
-        let minSpan = document.querySelector(".slider-touch-left span");
-        let maxSpan = document.querySelector(".slider-touch-right span");
-
-        minSpan.setAttribute("value", `${ram.ramMin} Go`);
-        maxSpan.setAttribute("value", `${ram.ramMax} Go`);
-
-        slider.on("change", async (min, max) => {
-            let config = await this.db.readData('configClient');
-            minSpan.setAttribute("value", `${min} Go`);
-            maxSpan.setAttribute("value", `${max} Go`);
-            config.java_config.java_memory = { min: min, max: max };
-            this.db.updateData('configClient', config);
+        HomeButton.addEventListener('click', function() {
+            changePanel('home')
         });
 
         /* Connexion logic */
@@ -270,6 +222,7 @@ class Login {
         });
     }
 
+
     async saveData(connectionData) {
         let configClient = await this.db.readData('configClient');
         let account = await this.db.createData('accounts', connectionData)
@@ -293,7 +246,9 @@ class Login {
         await this.db.updateData('configClient', configClient);
         await addAccount(account);
         await accountSelect(account);
-        changePanel('home');
+        
+        document.querySelector('.login-class').style.display = 'none';
+        document.querySelector('.config-class').style.display = 'block';
     }
 }
 
