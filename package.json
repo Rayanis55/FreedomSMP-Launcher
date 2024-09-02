@@ -39,6 +39,6 @@
     },
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "git+https://github.com/Rayanis55/FreedomSMP-Launcher.git"
     }
 }
