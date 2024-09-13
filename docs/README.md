@@ -1,11 +1,11 @@
 <p align="center"><img src="../src/assets/images/icon.png" alt="icon-launcher"></p>
 
-<h1 align="center">FreedomSMP Launcher (Launcher entre potes)</h1>
+<h1 align="center">FreedomSMP Launcher (Private SMP)</h1>
 <h1 align="center">Fork du launcher initial par @luxiss</h1>
 
 ### **<ins><p align="center">Fonctionnalitées et info du launcher :</p>**
 
-🔒 Authentification -> FreedomSMP Account (AuthZ) (Crack)
+🔒 Authentification -> Microsoft Account
 
 🌐 Mise à jour -> Parfois, automatique
 
