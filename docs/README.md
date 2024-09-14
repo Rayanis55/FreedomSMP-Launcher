@@ -25,6 +25,6 @@ Si vous téléchargez à partir des Releases, sélectionnez le programme d'insta
 
  Plateforme | Fichier |
 | -------- | ---- |
-| Windows x64 10 + 11 | `Selvania-Launcher-win-x64.exe ` |
+| Windows x64 10 + 11 | `... ` |
 
 ---
