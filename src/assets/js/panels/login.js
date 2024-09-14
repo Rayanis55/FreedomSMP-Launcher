@@ -35,14 +35,34 @@ class Login {
         })
     }
 
-    /*
-
     async getMicrosoft() {
         console.log('Initializing Microsoft login...');
         let popupLogin = new popup();
         let loginHome = document.querySelector('.login-home');
         let microsoftBtn = document.querySelector('.connect-home');
         loginHome.style.display = 'block';
+        
+        /* Welcome Menu */
+
+        let StartConfigButton = document.querySelector('.start-config-button')
+        let StartConnectButton = document.querySelector('.start-connect-button')
+        let CrackStartConnect = document.querySelector('.start-connect-button-crack')
+        let HomeButton = document.querySelector('.go-to-home')
+
+        StartConfigButton.addEventListener('click', function() {
+            changePanel('settings')
+        });
+
+        StartConnectButton.addEventListener('click', function() {
+            document.querySelector('.welcome-class').style.display = 'none';
+            document.querySelector('.login-class').style.display = 'block';
+        });
+
+        HomeButton.addEventListener('click', function() {
+            changePanel('home')
+        });
+
+        /* Connexion logic */
 
         microsoftBtn.addEventListener("click", () => {
             popupLogin.openPopup({
@@ -69,7 +89,6 @@ class Login {
             });
         })
     }
-
     async getCrack() {
         console.log('Initializing offline login...');
         let popupLogin = new popup();
@@ -111,7 +130,7 @@ class Login {
             await this.saveData(MojangConnect)
             popupLogin.closePopup();
         });
-    } */
+    }
 
     async getAZauth() {
         console.log('Initializing AZauth login...');
