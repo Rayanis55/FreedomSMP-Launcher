@@ -1,7 +1,7 @@
 {
     "name": "freedomsmp_launcher",
     "preductname": "FreedomSMP Launcher",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "The official launcher of FreedomSMP Server",
     "main": "src/app.js",
     "author": {
