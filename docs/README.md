@@ -19,7 +19,7 @@ Vous pouvez télécharger le launcher à partir des [Releases GitHub](../../../r
 
 Plateformes supportées :
 
-- Windows (Les versions infèrieurs à Windows 10 ne sont pas supportés (Dans ce nous vous aiderons à installé le modpack))
+- Windows (Les versions infèrieurs à Windows 10 ne sont pas supportés (Dans ce cas, nous vous aiderons à installé le modpack))
 - Linux (AppImage)
 - MacOS
 
